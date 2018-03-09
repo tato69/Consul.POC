@@ -21,7 +21,7 @@ After=network-online.target
 EnvironmentFile=-/etc/sysconfig/consul
 Environment=GOMAXPROCS=2
 Restart=on-failure
-ExecStart=consul agent -data-dir=/tmp/consul \
+ExecStart=/usr/local/sbin/consul agent -data-dir=/tmp/consul \
     -bind=`ifconfig | grep "inet addr:10" | cut -d ":" -f 2 | cut -d " " -f 1` -enable-script-checks=true -config-dir=/etc/consul.d -join 10.0.2.4
 ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGINT
