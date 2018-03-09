@@ -7,7 +7,7 @@ cp -a /tmp/consul /usr/local/sbin/
 rm -rf /tmp/consul*
 mkdir /etc/consul.d
 echo '{"check": {"name": "ping", "args": ["ping", "-c1", "google.com"], "interval": "30s"}}' | sudo tee /etc/consul.d/ping.json
-echo '{"service": {"name": "httpd", "tags": ["httpd"], "port": 80, "check": {"args": ["curl", "localhost"], "interval": "10s"}}}'  | sudo tee /etc/consul.d/web.json
+echo '{"service": {"name": "httpd", "tags": ["httpd"], "port": 80, "check": {"args": ["curl", "-s", "localhost"], "interval": "10s"}}}'  | sudo tee /etc/consul.d/httpd.json
 systemctl stop ufw 
 systemctl disable ufw
 
