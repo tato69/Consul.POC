@@ -1,11 +1,13 @@
 #!/bin/sh
 apt-get update 
-apt-get install unzip mysql-server -y 
+apt-get install unzip -y 
 wget https://releases.hashicorp.com/consul/1.0.6/consul_1.0.6_linux_amd64.zip?_ga=2.264617996.228682823.1520510943-1002964709.1520510943 -O /tmp/consul.zip
 unzip /tmp/consul.zip -d /tmp/
 cp -a /tmp/consul /usr/local/sbin/
 rm -rf /tmp/consul*
 mkdir /etc/consul.d
+echo '{"check": {"name": "ping", "args": ["ping", "-c1", "google.com"], "interval": "30s"}}' | sudo tee /etc/consul.d/ping.json
+echo '{"service": {"name": "ssh", "tags": ["ssh"], "port": 22, "check": { "id": "ssh", "name": "SSH TCP on port 22", "tcp": "localhost:22", "interval": "10s", "timeout": "1s" }}}'  | sudo tee /etc/consul.d/web.json
 systemctl stop ufw 
 systemctl disable ufw
 
