@@ -32,5 +32,6 @@ WantedBy=multi-user.target
 EOF
 
 systemctl daemon-reload
+systemctl enable consul
 
 systemctl start consul
